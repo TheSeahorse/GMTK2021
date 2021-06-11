@@ -1,2 +1,2 @@
 # GMTK2021
-Repo for our GMTK 2021 submission
+Repo for Alexander Lahti and Mikael Mollberg's GMTK 2021 submission
