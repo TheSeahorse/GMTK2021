@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/shovel.wav-5afa0f216332f3d2128db1482fd638e0.sample"
+
+[deps]
+
+source_file="res://Sound/shovel.wav"
+dest_files=[ "res://.import/shovel.wav-5afa0f216332f3d2128db1482fd638e0.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
