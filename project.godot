@@ -13,6 +13,13 @@ config_version=4
 config/name="Gmtk 2021"
 config/icon="res://Graphics/icon.png"
 
+[display]
+
+window/size/width=1920
+window/size/height=1080
+window/size/test_width=960
+window/size/test_height=540
+
 [physics]
 
 common/enable_pause_aware_picking=true
