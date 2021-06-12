@@ -1,13 +1,32 @@
 extends Node2D
 
+onready var rope = preload("res://Rope.tscn")
 onready var faller = preload("res://Faller.tscn")
+onready var player = preload("res://Player.tscn").instance()
 var rng = RandomNumberGenerator.new()
-
+var start_pos: Vector2 #Point where the rope starts aka where you click
+var end_pos: Vector2 #Point where the rope ends aka where the player ball is
+var current_rope
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
     rng.randomize()
+    player.position.x = 1200
+    add_child(player)
 
+func _input(event):
+    if event is InputEventMouseButton and event.is_pressed():
+        start_pos = get_global_mouse_position()
+        end_pos = player.position
+        current_rope = rope.instance()
+        add_child(current_rope)
+        current_rope.spawn_rope(start_pos, end_pos, player)
+    elif event is InputEventMouseButton and !event.is_pressed():
+        remove_child(current_rope)
+        current_rope.free()
+        current_rope = null
+        player.apply_impulse(Vector2.ZERO,Vector2(0,-10000))
+        
 
 func _process(delta):
     pass
