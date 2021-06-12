@@ -2,6 +2,7 @@ extends Container
 
 onready var rope = preload("res://Rope.tscn")
 onready var faller = preload("res://Faller.tscn")
+onready var long_faller = preload("res://LongFaller.tscn")
 onready var star = preload("res://Star.tscn")
 onready var five_star = preload("res://5Star.tscn")
 onready var player = preload("res://Player.tscn").instance()
@@ -15,7 +16,7 @@ var current_star
 var points = 0
 var game_over = false
 var can_spawn_rope = true
-
+var level = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -64,9 +65,14 @@ func reset_game_over_colors():
     tween.start()
 
 
+func _on_LevelTimer_timeout():
+    level += 1
+
+
 func _on_FallerTimer_timeout():
-    add_faller()
-    add_falling_star()
+    if level == 0:
+        pass
+    level(level)
 
 
 func _on_OutOfZoneTimer_timeout():
@@ -92,6 +98,26 @@ func _five_star_touched(body):
     $HUD/Label.text = str(points)
 
 
+func level(level: int):
+    match level:
+        1:
+            add_faller()
+        2:
+            var chance = randi() % 3
+            if chance == 0:
+                add_long_faller()
+            else:
+                add_faller()
+        3:
+            var chance = randi() % 10
+            if chance == 0:
+                add_falling_star()
+            elif chance < 4:
+                add_long_faller()
+            else:
+                add_faller()
+
+
 func give_player_boost():
     var max_boost = 4000
     var boost = Vector2(0,0)
@@ -111,6 +137,17 @@ func add_faller():
     var new_pos_x = rng.randf_range(0, width)
     new_faller.position.x = new_pos_x
     new_faller.position.y = -64
+    $Fallers.add_child(new_faller)
+
+
+func add_long_faller():
+    var new_faller = long_faller.instance()
+    var width = ProjectSettings.get_setting("display/window/size/width")
+    var new_pos_x = rng.randf_range(256, width - 256)
+    new_faller.position.x = new_pos_x
+    new_faller.position.y = -256
+    if randi() % 2 == 0:
+        new_faller.rotation_degrees = 90
     $Fallers.add_child(new_faller)
 
 

@@ -38,6 +38,10 @@ scale = Vector2( 1, 20 )
 wait_time = 3.0
 autostart = true
 
+[node name="LevelTimer" type="Timer" parent="."]
+wait_time = 30.0
+autostart = true
+
 [node name="Stars" type="Node2D" parent="."]
 
 [node name="PlayerControl" type="Control" parent="."]
@@ -57,5 +61,6 @@ one_shot = true
 one_shot = true
 
 [connection signal="timeout" from="FallerTimer" to="." method="_on_FallerTimer_timeout"]
+[connection signal="timeout" from="LevelTimer" to="." method="_on_LevelTimer_timeout"]
 [connection signal="timeout" from="OutOfZoneTimer" to="." method="_on_OutOfZoneTimer_timeout"]
 [connection signal="timeout" from="RopeRecharge" to="." method="_on_RopeRecharge_timeout"]

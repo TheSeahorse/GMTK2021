@@ -1,16 +1,17 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Graphics/kenney/PNG/Retina/block_small.png" type="Texture" id=1]
+[ext_resource path="res://Graphics/kenney/PNG/Retina/block_long.png" type="Texture" id=1]
 
 [sub_resource type="PhysicsMaterial" id=1]
 
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 32, 32 )
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 31.0
+height = 448.0
 
-[node name="Faller" type="RigidBody2D"]
+[node name="LongFaller" type="RigidBody2D"]
 collision_layer = 2
 collision_mask = 6
-mass = 1000.0
+mass = 5000.0
 physics_material_override = SubResource( 1 )
 linear_velocity = Vector2( 0, 100 )
 
