@@ -40,7 +40,7 @@ func create_rope(amount: int, parent: Object, end_pos: Vector2, spawn_angle: flo
         var joint_pos = parent.get_node("C/J").global_position
         if joint_pos.distance_to(end_pos) < rope_close_tolerence:
             player.attach_rope(parent)
-            rope_pieces.append(player.get_node("CollisionShape2D/PinJoint2D"))
+            rope_pieces.append(player.get_node("C/J"))
             break
 
 
