@@ -14,4 +14,5 @@ func update_score():
 
 
 func _on_Button_pressed():
+    get_tree().paused = false
     emit_signal("play_again")
