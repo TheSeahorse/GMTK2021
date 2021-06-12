@@ -19,6 +19,7 @@ func _draw():
     draw_polyline(rope_points, Color("80604D"))
 
 
+
 func spawn_rope(start_pos: Vector2, end_pos: Vector2, player: Object):
     rope_start_piece.global_position = start_pos
 
@@ -40,7 +41,7 @@ func create_rope(amount: int, parent: Object, end_pos: Vector2, spawn_angle: flo
         var joint_pos = parent.get_node("C/J").global_position
         if joint_pos.distance_to(end_pos) < rope_close_tolerence:
             player.attach_rope(parent)
-            rope_pieces.append(player.get_node("CollisionShape2D/PinJoint2D"))
+            rope_pieces.append(player.get_node("C/J"))
             break
 
 
@@ -58,6 +59,7 @@ func add_piece(parent:Object, spawn_angle:float) -> Object:
 
 
 func get_rope_points():
+    print(rope_pieces)
     rope_points = []
     #rope_points.append(rope_start_piece.global_position)
     for r in rope_pieces:
