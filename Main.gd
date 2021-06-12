@@ -13,6 +13,8 @@ var current_rope = null
 var current_star
 var points = 0
 var game_over = false
+var can_spawn_rope = true
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -31,11 +33,11 @@ func _input(event):
     if event is InputEventMouseButton:
         if event.button_index == BUTTON_LEFT and !event.is_pressed():
             despawn_rope()
-        if event.button_index == BUTTON_LEFT and event.is_pressed():
+        if event.button_index == BUTTON_LEFT and event.is_pressed() and can_spawn_rope:
             spawn_rope()
 
 
-func _process(delta):
+func _process(_delta):
     if not $OutOfZoneTimer.is_stopped():
         var time_left = $OutOfZoneTimer.get_time_left()
         var percentage = abs(3 - time_left) / 3 * 100
@@ -43,7 +45,7 @@ func _process(delta):
 
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
     if not game_over and ((player.position.y > GAME_HEIGHT or player.position.y < 0) or (player.position.x < 0 or player.position.x > GAME_WIDTH)):
         if $OutOfZoneTimer.is_stopped() and not game_over:
             print("Starting OutOfZoneTimer timer")
@@ -61,7 +63,7 @@ func reset_game_over_colors():
     tween.start()
 
 
-func _on_Timer_timeout():
+func _on_FallerTimer_timeout():
     add_faller()
 
 
@@ -69,6 +71,10 @@ func _on_OutOfZoneTimer_timeout():
     print("Game over")
     game_over = true
     player.queue_free()
+
+
+func _on_RopeRecharge_timeout():
+    can_spawn_rope = true
 
 
 func _star_touched(star):
@@ -113,10 +119,12 @@ func spawn_rope():
     if player_pos.distance_to(mouse_pos) > 300:
         var angle = mouse_pos.angle_to_point(player_pos)
         mouse_pos = player_pos + Vector2(cos(angle) * 320, sin(angle) * 320)
-
     current_rope = rope.instance()
     add_child(current_rope)
     current_rope.spawn_rope(mouse_pos, player_pos, player)
+
+    start_rope_recharge_timer()
+
 
 func despawn_rope():
     if current_rope != null:
@@ -124,3 +132,12 @@ func despawn_rope():
         current_rope.free()
         current_rope = null
         give_player_boost()
+
+
+func start_rope_recharge_timer():
+    can_spawn_rope = false
+    $RopeRecharge.start()
+    player.rope_cooldown(true)
+
+
+
