@@ -288,6 +288,7 @@ func game_over():
     $Fallers.queue_free()
     $Stars.queue_free()
     $HUD.queue_free()
+    despawn_rope()
 
 
 func _on_GameOver_play_again():
