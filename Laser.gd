@@ -7,7 +7,7 @@ onready var number_1 = preload("res://Graphics/kenney/PNG/Retina/number_1.png")
 var countdown = 4
 
 func _ready():
-    pass
+    $LaserGun.play()
 
 func _on_Timer_timeout():
     countdown -= 1

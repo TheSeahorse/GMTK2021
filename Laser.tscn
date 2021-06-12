@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Graphics/kenney/PNG/Retina/long_laser.png" type="Texture" id=1]
 [ext_resource path="res://Graphics/kenney/PNG/Retina/laser_shooter.png" type="Texture" id=2]
 [ext_resource path="res://Laser.gd" type="Script" id=3]
 [ext_resource path="res://Graphics/kenney/PNG/Retina/number_3.png" type="Texture" id=4]
+[ext_resource path="res://Sound/laser_gun.wav" type="AudioStream" id=5]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 14.0
@@ -47,6 +48,10 @@ texture = ExtResource( 4 )
 autostart = true
 
 [node name="FadeTween" type="Tween" parent="."]
+
+[node name="LaserGun" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = -15.0
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_Laser_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
