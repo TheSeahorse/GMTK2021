@@ -59,7 +59,6 @@ func add_piece(parent:Object, spawn_angle:float) -> Object:
 
 
 func get_rope_points():
-    print(rope_pieces)
     rope_points = []
     #rope_points.append(rope_start_piece.global_position)
     for r in rope_pieces:
