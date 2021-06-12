@@ -1,10 +1,13 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://Wall.tscn" type="PackedScene" id=2]
 [ext_resource path="res://HUD.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Sound/star_pickup.wav" type="AudioStream" id=4]
 [ext_resource path="res://GameOver.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Sound/decline.wav" type="AudioStream" id=6]
+[ext_resource path="res://Sound/rubber_shot.wav" type="AudioStream" id=7]
+[ext_resource path="res://Sound/pop.wav" type="AudioStream" id=8]
 
 [node name="Main" type="Container"]
 anchor_right = 1.0
@@ -62,11 +65,24 @@ one_shot = true
 [node name="RopeRecharge" type="Timer" parent="."]
 one_shot = true
 
-[node name="star_pickup" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 4 )
-
 [node name="GameOver" parent="." instance=ExtResource( 5 )]
 visible = false
+
+[node name="StarPickup" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -15.0
+
+[node name="DeclineRopeSpawn" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = -15.0
+
+[node name="RubberShot" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+volume_db = -15.0
+
+[node name="PlaceRope" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+volume_db = -30.0
 
 [connection signal="timeout" from="FallerTimer" to="." method="_on_FallerTimer_timeout"]
 [connection signal="timeout" from="LevelTimer" to="." method="_on_LevelTimer_timeout"]

@@ -38,8 +38,11 @@ func _input(event):
     if event is InputEventMouseButton:
         if event.button_index == BUTTON_LEFT and !event.is_pressed():
             despawn_rope()
-        if event.button_index == BUTTON_LEFT and event.is_pressed() and can_spawn_rope:
-            spawn_rope()
+        if event.button_index == BUTTON_LEFT and event.is_pressed():
+            if can_spawn_rope:
+                spawn_rope()
+            else:
+                $DeclineRopeSpawn.play()
 
 
 func _process(_delta):
@@ -58,6 +61,7 @@ func _physics_process(_delta):
             $OutOfZoneTimer.stop()
             reset_game_over_colors()
 
+
 func reset_game_over_colors():
     var tween = get_node("Tween")
     tween.interpolate_property($HUD/ColorRect, "color",
@@ -73,7 +77,7 @@ func _on_LevelTimer_timeout():
 func _on_FallerTimer_timeout():
     if level == 0:
         pass
-    level(level)
+    spawner(level)
 
 
 func _on_OutOfZoneTimer_timeout():
@@ -98,12 +102,12 @@ func _player_touched_star(body):
         is_a_star = false
 
     if is_a_star:
-        $star_pickup.play()
+        $StarPickup.play()
         body.queue_free()
         $HUD/Label.text = str(points)
 
 
-func level(level: int):
+func spawner(level: int):
     match level:
         1:
             add_faller()
@@ -113,7 +117,7 @@ func level(level: int):
                 add_long_faller()
             else:
                 add_faller()
-        3:
+        3,4,5,6,7,8,9,10:
             var chance = randi() % 10
             if chance == 0:
                 add_falling_star()
@@ -132,6 +136,18 @@ func give_player_boost():
         boost.x = max_boost
     if boost.y > max_boost:
         boost.y = max_boost
+
+    if max(abs(velocity.x), abs(velocity.y)) < 200:
+        $RubberShot.volume_db = -30
+    elif max(abs(velocity.x), abs(velocity.y)) < 400:
+        $RubberShot.volume_db = -25
+    elif max(abs(velocity.x), abs(velocity.y)) < 600:
+        $RubberShot.volume_db = -20
+    else:
+        $RubberShot.volume_db = -15
+    print("volume: " + str($RubberShot.volume_db))
+    print("velocity: " + str(velocity))
+    $RubberShot.play()
     player.apply_impulse(Vector2.ZERO, boost)
 
 
@@ -187,6 +203,7 @@ func spawn_rope():
     add_child(current_rope)
     current_rope.spawn_rope(mouse_pos, player_pos, player)
 
+    $PlaceRope.play()
     start_rope_recharge_timer()
 
 
