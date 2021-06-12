@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/pause.wav-dbf2d127274e196fe90040c1300170b6.sample"
+path="res://.import/thud.wav-3ab81408b40673f00ee65a0780262a2b.sample"
 
 [deps]
 
-source_file="res://Sound/pause.wav"
-dest_files=[ "res://.import/pause.wav-dbf2d127274e196fe90040c1300170b6.sample" ]
+source_file="res://Sound/thud.wav"
+dest_files=[ "res://.import/thud.wav-3ab81408b40673f00ee65a0780262a2b.sample" ]
 
 [params]
 

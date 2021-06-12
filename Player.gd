@@ -29,3 +29,7 @@ func rope_cooldown(on_cooldown: bool):
 
 func _on_StarDetector_entered(body):
     emit_signal("star_entered", body)
+
+
+func _on_Player_body_entered(body):
+    $collision.play()

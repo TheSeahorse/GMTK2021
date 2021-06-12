@@ -95,6 +95,7 @@ func _player_touched_star(body):
         is_a_star = false
 
     if is_a_star:
+        $star_pickup.play()
         body.queue_free()
         $HUD/Label.text = str(points)
 

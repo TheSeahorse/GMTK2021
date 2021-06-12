@@ -10,6 +10,8 @@ radius = 30.0
 collision_layer = 8
 collision_mask = 19
 mode = 1
+contacts_reported = 2
+contact_monitor = true
 script = ExtResource( 2 )
 
 [node name="hole_start" type="Sprite" parent="."]
@@ -26,6 +28,8 @@ autostart = true
 
 [node name="ShrinkTimer" type="Timer" parent="."]
 wait_time = 0.04
+
+[node name="collision" type="AudioStreamPlayer2D" parent="."]
 
 [connection signal="timeout" from="BigTimer" to="." method="_on_BigTimer_timeout"]
 [connection signal="timeout" from="ShrinkTimer" to="." method="_on_ShrinkTimer_timeout"]
