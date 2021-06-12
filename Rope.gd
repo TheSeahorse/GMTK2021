@@ -62,5 +62,6 @@ func get_rope_points():
     rope_points = []
     #rope_points.append(rope_start_piece.global_position)
     for r in rope_pieces:
-        rope_points.append(r.global_position)
+        if r != null:
+            rope_points.append(r.global_position)
 
