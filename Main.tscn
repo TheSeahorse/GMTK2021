@@ -2,6 +2,7 @@
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://Wall.tscn" type="PackedScene" id=2]
+[ext_resource path="res://HUD.tscn" type="PackedScene" id=3]
 
 [sub_resource type="TileSet" id=1]
 
@@ -27,5 +28,9 @@ scale = Vector2( 1, 5 )
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
+
+[node name="Stars" type="Node2D" parent="."]
+
+[node name="HUD" parent="." instance=ExtResource( 3 )]
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
