@@ -10,6 +10,8 @@ onready var player = preload("res://Player.tscn").instance()
 var GAME_HEIGHT = ProjectSettings.get_setting("display/window/size/height")
 var GAME_WIDTH = ProjectSettings.get_setting("display/window/size/width")
 
+var GameData
+
 signal play_again
 
 var rng = RandomNumberGenerator.new()
@@ -23,6 +25,7 @@ var level = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
     rng.randomize()
+    GameData = get_node("/root/GameData")
     player.position = Vector2(800,300)
     player.linear_velocity = Vector2(400, -400)
     player.connect("star_entered", self, "_player_touched_star")
@@ -80,6 +83,10 @@ func _on_OutOfZoneTimer_timeout():
     print("Game over")
     game_over = true
     player.queue_free()
+    if points > GameData.highscore:
+        GameData.highscore = points
+        GameData.save_score()
+    $GameOver.update_score()
     $GameOver.show()
 
 
