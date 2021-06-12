@@ -26,11 +26,11 @@ color = Color( 0.733333, 0.898039, 0.941176, 1 )
 
 [node name="Wall" parent="." instance=ExtResource( 2 )]
 position = Vector2( -20, 526 )
-scale = Vector2( 1, 5 )
+scale = Vector2( 1, 20 )
 
 [node name="Wall2" parent="." instance=ExtResource( 2 )]
 position = Vector2( 1940, 548 )
-scale = Vector2( 1, 5 )
+scale = Vector2( 1, 20 )
 
 [node name="Fallers" type="Node2D" parent="."]
 

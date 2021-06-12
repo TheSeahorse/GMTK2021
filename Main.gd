@@ -6,6 +6,7 @@ onready var star = preload("res://Star.tscn")
 onready var player = preload("res://Player.tscn").instance()
 
 var GAME_HEIGHT = ProjectSettings.get_setting("display/window/size/height")
+var GAME_WIDTH = ProjectSettings.get_setting("display/window/size/width")
 
 var rng = RandomNumberGenerator.new()
 var current_rope = null
@@ -43,7 +44,7 @@ func _process(delta):
 
 
 func _physics_process(delta):
-    if not game_over and (player.position.y > GAME_HEIGHT or player.position.y < 0):
+    if not game_over and ((player.position.y > GAME_HEIGHT or player.position.y < 0) or (player.position.x < 0 or player.position.x > GAME_WIDTH)):
         if $OutOfZoneTimer.is_stopped() and not game_over:
             print("Starting OutOfZoneTimer timer")
             $OutOfZoneTimer.start(3)
