@@ -16,8 +16,8 @@ func _process(_delta):
 
 
 func _draw():
-    draw_polyline(rope_points, Color("80604D"))
-
+    if rope_points.size() > 1:
+        draw_polyline(rope_points, Color("80604D"))
 
 
 func spawn_rope(start_pos: Vector2, end_pos: Vector2, player: Object):

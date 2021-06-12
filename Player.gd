@@ -28,5 +28,4 @@ func rope_cooldown(on_cooldown: bool):
 
 
 func _on_StarDetector_entered(body):
-    print("Player: Star entered")
     emit_signal("star_entered", body)
