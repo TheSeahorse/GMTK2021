@@ -74,13 +74,16 @@ func reset_game_over_colors():
 
 
 func _on_LevelTimer_timeout():
-    $RollingText.roll_text("Stage " + str(level))
     level += 1
+    $RollingText.roll_text("Stage " + str(level))
+    match level:
+        1:
+            $FallerTimer.wait_time = 10
+        2:
+            $FallerTimer.wait_time = 3
 
 
 func _on_FallerTimer_timeout():
-    if level == 0:
-        pass
     spawner(level)
 
 
@@ -115,6 +118,10 @@ func _player_touched_star(body):
         is_a_star = false
 
     if is_a_star:
+        if points == 1:
+            $LevelTimer.start()
+            level = 1
+            $RollingText.roll_text("Stage " + str(level))
         $StarPickup.play()
         body.queue_free()
         $HUD/Label.text = str(points)
@@ -122,15 +129,23 @@ func _player_touched_star(body):
 
 func spawner(level: int):
     match level:
-        1:
+        1, 2:
             add_faller()
-        2:
+        3:
             var chance = randi() % 3
             if chance == 0:
                 add_long_faller()
             else:
                 add_faller()
-        3,4,5,6,7,8,9,10:
+        4,5,6,7,8,9,10:
+            var chance = randi() % 10
+            if chance == 0:
+                add_falling_star()
+            elif chance < 4:
+                add_long_faller()
+            else:
+                add_faller()
+        _:
             var chance = randi() % 10
             if chance == 0:
                 add_falling_star()
