@@ -5,8 +5,6 @@ onready var faller = preload("res://Faller.tscn")
 onready var star = preload("res://Star.tscn")
 onready var player = preload("res://Player.tscn").instance()
 var rng = RandomNumberGenerator.new()
-var start_pos: Vector2 #Point where the rope starts aka where you click
-var end_pos: Vector2 #Point where the rope ends aka where the player ball is
 var current_rope = null
 var current_star
 var points = 0
@@ -69,11 +67,11 @@ func add_star():
 
 #called by Player
 func spawn_rope():
-    start_pos = get_global_mouse_position()
-    end_pos = player.position
+    var mouse_pos = get_global_mouse_position()
+    var player_pos = player.position
     current_rope = rope.instance()
     add_child(current_rope)
-    current_rope.spawn_rope(start_pos, end_pos, player)
+    current_rope.spawn_rope(mouse_pos, player_pos, player)
 
 
 func despawn_rope():

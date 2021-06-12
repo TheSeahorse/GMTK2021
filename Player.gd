@@ -13,8 +13,8 @@ func _physics_process(delta):
 
 
 func attach_rope(rope_piece: Object):
-    $CollisionShape2D/PinJoint2D.node_a = self.get_path()
-    $CollisionShape2D/PinJoint2D.node_b = rope_piece.get_path()
+    $C/J.node_a = self.get_path()
+    $C/J.node_b = rope_piece.get_path()
 
 
 func get_rope_outline():

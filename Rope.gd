@@ -13,7 +13,7 @@ func spawn_rope(start_pos: Vector2, end_pos: Vector2, player: Object):
     player.global_position = end_pos
 
     start_pos = rope_start_piece.get_node("C/J").global_position
-    end_pos = player.get_node("CollisionShape2D/PinJoint2D").global_position
+    end_pos = player.get_node("C/J").global_position
 
     var distance = start_pos.distance_to(end_pos)
     var segments = round(distance / piece_length)
