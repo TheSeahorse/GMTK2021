@@ -24,6 +24,10 @@ config/name="Gmtk 2021"
 run/main_scene="res://Menu.tscn"
 config/icon="res://Graphics/icon.png"
 
+[autoload]
+
+GameData="*res://GameData.gd"
+
 [display]
 
 window/size/width=1920
