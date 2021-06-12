@@ -2,7 +2,13 @@
 
 [ext_resource path="res://Graphics/kenney/Future.tres" type="DynamicFont" id=1]
 
-[node name="HUD" type="CanvasLayer"]
+[node name="HUD" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Label" type="Label" parent="."]
 anchor_left = 1.0
@@ -15,3 +21,8 @@ text = "0"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 1, 0, 0, 0 )
