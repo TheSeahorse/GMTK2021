@@ -34,7 +34,7 @@ scale = Vector2( 1, 5 )
 
 [node name="Fallers" type="Node2D" parent="."]
 
-[node name="Timer" type="Timer" parent="."]
+[node name="FallerTimer" type="Timer" parent="."]
 wait_time = 3.0
 autostart = true
 
@@ -53,5 +53,5 @@ one_shot = true
 
 [node name="Tween" type="Tween" parent="."]
 
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="FallerTimer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="OutOfZoneTimer" to="." method="_on_OutOfZoneTimer_timeout"]
