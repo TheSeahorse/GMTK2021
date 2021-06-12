@@ -14,3 +14,8 @@ func _ready():
 
 func _physics_process(delta):
     pass
+
+
+func attach_rope(rope_piece: Object):
+    $CollisionShape2D/PinJoint2D.node_a = self.get_path()
+    $CollisionShape2D/PinJoint2D.node_b = rope_piece.get_path()
