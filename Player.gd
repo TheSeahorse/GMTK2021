@@ -1,6 +1,8 @@
 extends RigidBody2D
 
 
+signal star_entered(body)
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
     pass # Replace with function body.
@@ -23,3 +25,7 @@ func rope_cooldown(on_cooldown: bool):
     $red_ball_cooldown.show()
     $cd_tween.interpolate_property($red_ball_cooldown, "modulate" , Color(1,1,1,1), Color(1,1,1,0), 1.0, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
     $cd_tween.start()
+
+
+func _on_StarDetector_entered(body):
+    emit_signal("star_entered", body)

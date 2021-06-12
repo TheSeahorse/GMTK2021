@@ -3,8 +3,8 @@ extends Container
 onready var rope = preload("res://Rope.tscn")
 onready var faller = preload("res://Faller.tscn")
 onready var long_faller = preload("res://LongFaller.tscn")
-onready var star = preload("res://Star.tscn")
-onready var five_star = preload("res://5Star.tscn")
+onready var Star = preload("res://Star.tscn")
+onready var SilverStar = preload("res://SilverStar.tscn")
 onready var player = preload("res://Player.tscn").instance()
 
 var GAME_HEIGHT = ProjectSettings.get_setting("display/window/size/height")
@@ -23,6 +23,7 @@ func _ready():
     rng.randomize()
     player.position = Vector2(800,300)
     player.linear_velocity = Vector2(400, -400)
+    player.connect("star_entered", self, "_player_touched_star")
     add_child(player)
     add_star()
     set_process(true)
@@ -46,11 +47,9 @@ func _process(_delta):
         $HUD/ColorRect.color = Color8(255, 0, 0, percentage)
 
 
-
 func _physics_process(_delta):
     if not game_over and ((player.position.y > GAME_HEIGHT or player.position.y < 0) or (player.position.x < 0 or player.position.x > GAME_WIDTH)):
         if $OutOfZoneTimer.is_stopped() and not game_over:
-            print("Starting OutOfZoneTimer timer")
             $OutOfZoneTimer.start(3)
     else:
         if not $OutOfZoneTimer.is_stopped():
@@ -85,17 +84,19 @@ func _on_RopeRecharge_timeout():
     can_spawn_rope = true
 
 
-func _star_touched(body):
-    body.queue_free()
-    points += 1
-    $HUD/Label.text = str(points)
-    add_star()
+func _player_touched_star(body):
+    var is_a_star = true
+    if body.is_in_group("one_point"):
+        points += 1
+        add_star()
+    elif body.is_in_group("five_points"):
+        points += 5
+    else:
+        is_a_star = false
 
-
-func _five_star_touched(body):
-    body.queue_free()
-    points += 5
-    $HUD/Label.text = str(points)
+    if is_a_star:
+        body.queue_free()
+        $HUD/Label.text = str(points)
 
 
 func level(level: int):
@@ -127,17 +128,16 @@ func give_player_boost():
         boost.x = max_boost
     if boost.y > max_boost:
         boost.y = max_boost
-    print(boost)
     player.apply_impulse(Vector2.ZERO, boost)
 
 
 func add_faller():
     var new_faller = faller.instance()
-    var width = ProjectSettings.get_setting("display/window/size/width")
+    var width = GAME_WIDTH
     var new_pos_x = rng.randf_range(0, width)
     new_faller.position.x = new_pos_x
     new_faller.position.y = -64
-    $Fallers.add_child(new_faller)
+    $Fallers.call_deferred("add_child", new_faller)
 
 
 func add_long_faller():
@@ -152,25 +152,23 @@ func add_long_faller():
 
 
 func add_falling_star():
-    var star = five_star.instance()
-    var width = ProjectSettings.get_setting("display/window/size/width")
+    var new_star = SilverStar.instance()
+    var width = GAME_WIDTH
     var new_pos_x = rng.randf_range(0, width)
-    star.position.x = new_pos_x
-    star.position.y = -64
-    star.angular_velocity = rng.randf_range(-5, 5)
-    star.connect("area_body_entered", self, "_five_star_touched")
-    $Fallers.add_child(star)
+    new_star.position.x = new_pos_x
+    new_star.position.y = -64
+    new_star.angular_velocity = rng.randf_range(-5, 5)
+    $Fallers.call_deferred("add_child", new_star)
 
 
 func add_star():
-    var new_star = star.instance()
-    var width = ProjectSettings.get_setting("display/window/size/width")
+    var new_star = Star.instance()
+    var width = GAME_WIDTH
     var height = GAME_HEIGHT
     var new_pos_x = rng.randf_range(0, width)
     var new_pos_y = rng.randf_range(0, height)
     new_star.position = Vector2(new_pos_x, new_pos_y)
-    new_star.connect("body_entered", self, "_star_touched")
-    $Stars.add_child(new_star)
+    $Stars.call_deferred("add_child", new_star)
 
 #called by Player
 func spawn_rope():

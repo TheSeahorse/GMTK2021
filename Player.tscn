@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Graphics/kenney/PNG/Retina/ball_blue_small.png" type="Texture" id=1]
 [ext_resource path="res://Player.gd" type="Script" id=2]
@@ -14,6 +14,9 @@ radius = 30.0
 
 [sub_resource type="CircleShape2D" id=3]
 radius = 327.014
+
+[sub_resource type="CircleShape2D" id=4]
+radius = 32.0
 
 [node name="Player" type="RigidBody2D"]
 collision_mask = 6
@@ -47,4 +50,12 @@ texture = ExtResource( 3 )
 modulate = Color( 0, 0.721569, 0.0117647, 1 )
 shape = SubResource( 3 )
 
+[node name="StarDetector" type="Area2D" parent="."]
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StarDetector"]
+shape = SubResource( 4 )
+
 [connection signal="input_event" from="rope_outline" to="." method="_on_rope_outline_input_event"]
+[connection signal="area_entered" from="StarDetector" to="." method="_on_StarDetector_entered"]
+[connection signal="body_entered" from="StarDetector" to="." method="_on_StarDetector_entered"]
