@@ -123,6 +123,8 @@ func level(level: int):
 
 
 func give_player_boost():
+    if game_over:
+        return
     var max_boost = 4000
     var boost = Vector2(0,0)
     var velocity = player.linear_velocity
