@@ -22,6 +22,7 @@ func _ready():
     rng.randomize()
     player.position = Vector2(800,300)
     player.linear_velocity = Vector2(400, -400)
+    player.connect("star_entered", self, "_player_touched_star")
     add_child(player)
     add_star()
     set_process(true)
@@ -43,7 +44,6 @@ func _process(_delta):
         var time_left = $OutOfZoneTimer.get_time_left()
         var percentage = abs(3 - time_left) / 3 * 100
         $HUD/ColorRect.color = Color8(255, 0, 0, percentage)
-
 
 
 func _physics_process(_delta):
@@ -79,17 +79,19 @@ func _on_RopeRecharge_timeout():
     can_spawn_rope = true
 
 
-func _star_touched(body):
-    body.queue_free()
-    points += 1
-    $HUD/Label.text = str(points)
-    add_star()
+func _player_touched_star(body):
+    var is_a_star = true
+    if body.is_in_group("one_point"):
+        points += 1
+        add_star()
+    elif body.is_in_group("five_points"):
+        points += 5
+    else:
+        is_a_star = false
 
-
-func _five_star_touched(body):
-    body.queue_free()
-    points += 5
-    $HUD/Label.text = str(points)
+    if is_a_star:
+        body.queue_free()
+        $HUD/Label.text = str(points)
 
 
 func give_player_boost():
