@@ -3,5 +3,5 @@
 [ext_resource path="res://Graphics/kenney/Kenney Future.ttf" type="DynamicFontData" id=1]
 
 [resource]
-size = 64
+size = 96
 font_data = ExtResource( 1 )
