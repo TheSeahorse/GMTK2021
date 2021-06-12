@@ -3,6 +3,7 @@ extends Container
 onready var rope = preload("res://Rope.tscn")
 onready var faller = preload("res://Faller.tscn")
 onready var star = preload("res://Star.tscn")
+onready var five_star = preload("res://5Star.tscn")
 onready var player = preload("res://Player.tscn").instance()
 
 var GAME_HEIGHT = ProjectSettings.get_setting("display/window/size/height")
@@ -65,6 +66,7 @@ func reset_game_over_colors():
 
 func _on_FallerTimer_timeout():
     add_faller()
+    add_falling_star()
 
 
 func _on_OutOfZoneTimer_timeout():
@@ -77,11 +79,17 @@ func _on_RopeRecharge_timeout():
     can_spawn_rope = true
 
 
-func _star_touched(star):
-    star.queue_free()
+func _star_touched(body):
+    body.queue_free()
     points += 1
     $HUD/Label.text = str(points)
     add_star()
+
+
+func _five_star_touched(body):
+    body.queue_free()
+    points += 5
+    $HUD/Label.text = str(points)
 
 
 func give_player_boost():
@@ -98,6 +106,17 @@ func add_faller():
     new_faller.position.x = new_pos_x
     new_faller.position.y = -64
     $Fallers.add_child(new_faller)
+
+
+func add_falling_star():
+    var star = five_star.instance()
+    var width = ProjectSettings.get_setting("display/window/size/width")
+    var new_pos_x = rng.randf_range(0, width)
+    star.position.x = new_pos_x
+    star.position.y = -64
+    star.angular_velocity = rng.randf_range(-5, 5)
+    star.connect("area_body_entered", self, "_five_star_touched")
+    $Fallers.add_child(star)
 
 
 func add_star():
