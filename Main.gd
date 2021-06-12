@@ -117,6 +117,8 @@ func _player_touched_star(body):
 
 func spawner(level: int):
     match level:
+        0:
+            pass
         1, 2:
             add_faller()
         3:
