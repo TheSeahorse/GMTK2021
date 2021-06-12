@@ -22,4 +22,5 @@ disable_collision = false
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0, 20 )
+visible = false
 texture = ExtResource( 2 )

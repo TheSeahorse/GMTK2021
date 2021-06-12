@@ -25,6 +25,8 @@ func _ready():
 
 
 func _input(event):
+    if game_over:
+        return
     if event is InputEventMouseButton:
         if event.button_index == BUTTON_LEFT and !event.is_pressed():
             despawn_rope()

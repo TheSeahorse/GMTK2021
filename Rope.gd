@@ -1,16 +1,26 @@
-extends Node
+extends Node2D
 
 var rope_piece = preload("res://RopePiece.tscn")
 var piece_length = 20.0
 var rope_pieces = []
-var rope_close_tolerence = 20.0
+var rope_points : PoolVector2Array = []
+var rope_close_tolerence = piece_length
 
 onready var rope_start_piece = $RopeStartPiece
 
 
+func _process(_delta):
+    get_rope_points()
+    if !rope_points.empty():
+        update()
+
+
+func _draw():
+    draw_polyline(rope_points, Color("80604D"))
+
+
 func spawn_rope(start_pos: Vector2, end_pos: Vector2, player: Object):
     rope_start_piece.global_position = start_pos
-    player.global_position = end_pos
 
     start_pos = rope_start_piece.get_node("C/J").global_position
     end_pos = player.get_node("C/J").global_position
@@ -30,9 +40,8 @@ func create_rope(amount: int, parent: Object, end_pos: Vector2, spawn_angle: flo
         var joint_pos = parent.get_node("C/J").global_position
         if joint_pos.distance_to(end_pos) < rope_close_tolerence:
             player.attach_rope(parent)
+            rope_pieces.append(player.get_node("CollisionShape2D/PinJoint2D"))
             break
-
-
 
 
 func add_piece(parent:Object, spawn_angle:float) -> Object:
@@ -46,3 +55,11 @@ func add_piece(parent:Object, spawn_angle:float) -> Object:
     joint.node_b = piece.get_path()
 
     return piece
+
+
+func get_rope_points():
+    rope_points = []
+    #rope_points.append(rope_start_piece.global_position)
+    for r in rope_pieces:
+        rope_points.append(r.global_position)
+
