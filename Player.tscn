@@ -31,6 +31,7 @@ shape = SubResource( 2 )
 [node name="J" type="PinJoint2D" parent="C"]
 
 [node name="rope_outline" type="Area2D" parent="."]
+visible = false
 collision_mask = 0
 
 [node name="rope_outline" type="Sprite" parent="rope_outline"]
