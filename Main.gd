@@ -74,6 +74,7 @@ func reset_game_over_colors():
 
 
 func _on_LevelTimer_timeout():
+    $RollingText.roll_text("Stage " + str(level))
     level += 1
 
 
@@ -92,6 +93,11 @@ func _on_OutOfZoneTimer_timeout():
         GameData.save_score()
     $GameOver.update_score()
     $GameOver.show()
+    get_tree().paused = true
+    $RollingText.queue_free()
+    $Fallers.queue_free()
+    $Stars.queue_free()
+    $HUD.queue_free()
 
 
 func _on_RopeRecharge_timeout():
