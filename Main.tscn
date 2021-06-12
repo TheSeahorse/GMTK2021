@@ -6,8 +6,14 @@
 
 [sub_resource type="TileSet" id=1]
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Container"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource( 1 )
@@ -27,10 +33,23 @@ scale = Vector2( 1, 5 )
 [node name="Fallers" type="Node2D" parent="."]
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
 autostart = true
 
 [node name="Stars" type="Node2D" parent="."]
 
+[node name="PlayerControl" type="Control" parent="."]
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OutOfZoneTimer" type="Timer" parent="."]
+one_shot = true
+
 [node name="HUD" parent="." instance=ExtResource( 3 )]
 
+[node name="Tween" type="Tween" parent="."]
+
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="OutOfZoneTimer" to="." method="_on_OutOfZoneTimer_timeout"]
