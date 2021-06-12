@@ -11,8 +11,10 @@ var current_rope
 # Called when the node enters the scene tree for the first time.
 func _ready():
     rng.randomize()
-    player.position.x = 1200
+    player.position = Vector2(800,300)
+    player.linear_velocity = Vector2(400, -400)
     add_child(player)
+
 
 func _input(event):
     if event is InputEventMouseButton and event.is_pressed():
@@ -25,8 +27,8 @@ func _input(event):
         remove_child(current_rope)
         current_rope.free()
         current_rope = null
-        player.apply_impulse(Vector2.ZERO,Vector2(0,-10000))
-        
+        give_player_boost()
+
 
 func _process(delta):
     pass
@@ -34,6 +36,13 @@ func _process(delta):
 
 func _on_Timer_timeout():
     add_faller()
+
+
+func give_player_boost():
+    if player.linear_velocity.x > 0:
+        player.apply_impulse(Vector2.ZERO,Vector2(3000,-5000))
+    else:
+        player.apply_impulse(Vector2.ZERO,Vector2(-3000,-5000))
 
 
 func add_faller():
