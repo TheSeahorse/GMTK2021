@@ -10,6 +10,8 @@ onready var player = preload("res://Player.tscn").instance()
 var GAME_HEIGHT = ProjectSettings.get_setting("display/window/size/height")
 var GAME_WIDTH = ProjectSettings.get_setting("display/window/size/width")
 
+signal play_again
+
 var rng = RandomNumberGenerator.new()
 var current_rope = null
 var current_star
@@ -78,6 +80,7 @@ func _on_OutOfZoneTimer_timeout():
     print("Game over")
     game_over = true
     player.queue_free()
+    $GameOver.show()
 
 
 func _on_RopeRecharge_timeout():
@@ -200,4 +203,5 @@ func start_rope_recharge_timer():
     player.rope_cooldown(true)
 
 
-
+func _on_GameOver_play_again():
+    emit_signal("play_again")
