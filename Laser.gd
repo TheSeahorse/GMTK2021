@@ -5,7 +5,6 @@ onready var number_2 = preload("res://Graphics/kenney/PNG/Retina/number_2.png")
 onready var number_1 = preload("res://Graphics/kenney/PNG/Retina/number_1.png")
 
 var countdown = 4
-var can_kill = false
 
 func _ready():
     pass
@@ -38,4 +37,9 @@ func _on_Laser_body_entered(body):
     if body is Faller:
         body.queue_free()
     elif body is Player:
-        get_parent().game_over()
+        get_parent().get_parent().game_over()
+
+
+func flip():
+    self.rotation_degrees = 180
+    $NumbersSprite.rotation_degrees = 180

@@ -4,6 +4,7 @@ onready var rope = preload("res://Rope.tscn")
 onready var faller = preload("res://Faller.tscn")
 onready var long_faller = preload("res://LongFaller.tscn")
 onready var Star = preload("res://Star.tscn")
+onready var Laser = preload("res://Laser.tscn")
 onready var SilverStar = preload("res://SilverStar.tscn")
 onready var player = preload("res://Player.tscn").instance()
 
@@ -80,7 +81,18 @@ func _on_LevelTimer_timeout():
         1:
             $FallerTimer.wait_time = 10
         2:
+
             $FallerTimer.wait_time = 3
+        3:
+            add_long_faller()
+
+        4:
+            add_falling_star()
+
+        5:
+            $FallerTimer.wait_time = 1.5
+        6:
+            add_laser()
 
 
 func _on_FallerTimer_timeout():
@@ -125,22 +137,34 @@ func spawner(level: int):
                 add_long_faller()
             else:
                 add_faller()
-        4,5,6,7,8,9,10:
+        4, 5:
             var chance = randi() % 10
-            if chance == 0:
-                add_falling_star()
-            elif chance < 4:
+            if chance < 5:
                 add_long_faller()
             else:
                 add_faller()
+            if chance == 0:
+                add_falling_star()
+        6:
+            var chance = randi() % 10
+            if chance < 5:
+                add_long_faller()
+            else:
+                add_faller()
+            if chance == 0:
+                add_falling_star()
+            if chance < 3:
+                add_laser()
         _:
             var chance = randi() % 10
-            if chance == 0:
-                add_falling_star()
-            elif chance < 4:
+            if chance < 7:
                 add_long_faller()
             else:
                 add_faller()
+            if chance == 0:
+                add_falling_star()
+            if chance < 5:
+                add_laser()
 
 
 func give_player_boost():
@@ -163,8 +187,6 @@ func give_player_boost():
         $RubberShot.volume_db = -20
     else:
         $RubberShot.volume_db = -15
-    print("volume: " + str($RubberShot.volume_db))
-    print("velocity: " + str(velocity))
     $RubberShot.play()
     player.apply_impulse(Vector2.ZERO, boost)
 
@@ -203,10 +225,22 @@ func add_star():
     var new_star = Star.instance()
     var width = GAME_WIDTH
     var height = GAME_HEIGHT
-    var new_pos_x = rng.randf_range(0, width)
-    var new_pos_y = rng.randf_range(0, height)
+    var new_pos_x = rng.randf_range(40, width - 40)
+    var new_pos_y = rng.randf_range(40, height - 40)
     new_star.position = Vector2(new_pos_x, new_pos_y)
     $Stars.call_deferred("add_child", new_star)
+
+
+func add_laser():
+    var new_laser = Laser.instance()
+    var new_pos_y = rng.randf_range(40, GAME_HEIGHT - 40)
+    var new_pos_x = 47
+    if randi() % 2 == 0:
+        new_pos_x = GAME_WIDTH - 47
+        new_laser.flip()
+    new_laser.position = Vector2(new_pos_x, new_pos_y)
+    $Lasers.call_deferred("add_child", new_laser)
+
 
 #called by Player
 func spawn_rope():
@@ -240,7 +274,6 @@ func start_rope_recharge_timer():
 
 
 func game_over():
-    print("Game over")
     game_over = true
     player.queue_free()
     if points > GameData.highscore:
@@ -253,6 +286,7 @@ func game_over():
     $Fallers.queue_free()
     $Stars.queue_free()
     $HUD.queue_free()
+
 
 func _on_GameOver_play_again():
     emit_signal("play_again")
