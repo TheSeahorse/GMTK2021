@@ -93,10 +93,16 @@ func _five_star_touched(body):
 
 
 func give_player_boost():
-    if player.linear_velocity.x > 0:
-        player.apply_impulse(Vector2.ZERO,Vector2(3000,-5000))
-    else:
-        player.apply_impulse(Vector2.ZERO,Vector2(-3000,-5000))
+    var max_boost = 4000
+    var boost = Vector2(0,0)
+    var velocity = player.linear_velocity
+    boost = velocity*10
+    if boost.x > max_boost:
+        boost.x = max_boost
+    if boost.y > max_boost:
+        boost.y = max_boost
+    print(boost)
+    player.apply_impulse(Vector2.ZERO, boost)
 
 
 func add_faller():
