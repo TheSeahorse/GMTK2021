@@ -241,7 +241,7 @@ func add_laser():
         new_pos_x = GAME_WIDTH - 47
         new_laser.flip()
     new_laser.position = Vector2(new_pos_x, new_pos_y)
-    $Lasers.call_deferred("add_child", new_laser)
+    $Fallers.call_deferred("add_child", new_laser)
 
 
 #called by Player
@@ -288,6 +288,7 @@ func game_over():
     $Fallers.queue_free()
     $Stars.queue_free()
     $HUD.queue_free()
+    despawn_rope()
 
 
 func _on_GameOver_play_again():
