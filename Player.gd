@@ -1,5 +1,5 @@
 extends RigidBody2D
-
+class_name Player
 
 signal star_entered(body)
 

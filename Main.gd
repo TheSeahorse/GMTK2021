@@ -84,14 +84,7 @@ func _on_FallerTimer_timeout():
 
 
 func _on_OutOfZoneTimer_timeout():
-    print("Game over")
-    game_over = true
-    player.queue_free()
-    if points > GameData.highscore:
-        GameData.highscore = points
-        GameData.save_score()
-    $GameOver.update_score()
-    $GameOver.show()
+    game_over()
 
 
 func _on_RopeRecharge_timeout():
@@ -229,6 +222,15 @@ func start_rope_recharge_timer():
     $RopeRecharge.start()
     player.rope_cooldown(true)
 
+
+func game_over():
+    game_over = true
+    player.queue_free()
+    if points > GameData.highscore:
+        GameData.highscore = points
+        GameData.save_score()
+    $GameOver.update_score()
+    $GameOver.show()
 
 func _on_GameOver_play_again():
     emit_signal("play_again")

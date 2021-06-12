@@ -1,5 +1,5 @@
 extends RigidBody2D
-
+class_name Faller
 
 var GAME_WIDTH = ProjectSettings.get_setting("display/window/size/width")
 

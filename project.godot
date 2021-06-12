@@ -9,12 +9,24 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "RigidBody2D",
+"class": "Faller",
+"language": "GDScript",
+"path": "res://Faller.gd"
+}, {
+"base": "RigidBody2D",
+"class": "Player",
+"language": "GDScript",
+"path": "res://Player.gd"
+}, {
 "base": "StaticBody2D",
 "class": "Star",
 "language": "GDScript",
 "path": "res://Star.gd"
 } ]
 _global_script_class_icons={
+"Faller": "",
+"Player": "",
 "Star": ""
 }
 
