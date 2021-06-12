@@ -7,7 +7,7 @@ onready var player = preload("res://Player.tscn").instance()
 var rng = RandomNumberGenerator.new()
 var start_pos: Vector2 #Point where the rope starts aka where you click
 var end_pos: Vector2 #Point where the rope ends aka where the player ball is
-var current_rope
+var current_rope = null
 var current_star
 var points = 0
 
@@ -20,19 +20,10 @@ func _ready():
     add_star()
 
 
-
 func _input(event):
-    if event is InputEventMouseButton and event.is_pressed():
-        start_pos = get_global_mouse_position()
-        end_pos = player.position
-        current_rope = rope.instance()
-        add_child(current_rope)
-        current_rope.spawn_rope(start_pos, end_pos, player)
-    elif event is InputEventMouseButton and !event.is_pressed():
-        remove_child(current_rope)
-        current_rope.free()
-        current_rope = null
-        give_player_boost()
+    if event is InputEventMouseButton:
+        if event.button_index == BUTTON_LEFT and !event.is_pressed():
+            despawn_rope()
 
 
 func _process(delta):
@@ -41,6 +32,13 @@ func _process(delta):
 
 func _on_Timer_timeout():
     add_faller()
+
+
+func _star_touched(star):
+    star.queue_free()
+    points += 1
+    $HUD/Label.text = str(points)
+    add_star()
 
 
 func give_player_boost():
@@ -69,9 +67,18 @@ func add_star():
     new_star.connect("body_entered", self, "_star_touched")
     $Stars.add_child(new_star)
 
+#called by Player
+func spawn_rope():
+    start_pos = get_global_mouse_position()
+    end_pos = player.position
+    current_rope = rope.instance()
+    add_child(current_rope)
+    current_rope.spawn_rope(start_pos, end_pos, player)
 
-func _star_touched(star):
-    star.queue_free()
-    points += 1
-    $HUD/Label.text = str(points)
-    add_star()
+
+func despawn_rope():
+    if current_rope != null:
+        remove_child(current_rope)
+        current_rope.free()
+        current_rope = null
+        give_player_boost()
