@@ -183,7 +183,7 @@ func spawner():
                     add_long_faller()
                 else:
                     add_faller()
-                if chance < 15:
+                if chance < 10:
                     add_falling_star()
 
         7:
@@ -191,7 +191,7 @@ func spawner():
                 add_long_faller()
             else:
                 add_faller()
-            if chance < 15:
+            if chance < 10:
                 add_falling_star()
             if chance < 20:
                 add_laser()
@@ -200,7 +200,7 @@ func spawner():
                 add_long_faller()
             else:
                 add_faller()
-            if chance < 15:
+            if chance < 10:
                 add_falling_star()
             if chance < 25:
                 add_laser()
@@ -209,7 +209,7 @@ func spawner():
                 add_long_faller()
             else:
                 add_faller()
-            if chance < 15:
+            if chance < 10:
                 add_falling_star()
             if chance < 30:
                 add_laser()
@@ -218,7 +218,7 @@ func spawner():
                 add_long_faller()
             if chance < 70:
                 add_faller()
-            if chance < 20:
+            if chance < 15:
                 add_falling_star()
             if chance < 30:
                 add_laser()
@@ -231,9 +231,9 @@ func spawner():
             if chance < 30 + level:
                 add_laser()
 
-            if chance < 20 + level:
+            if chance < 5 + level:
                 add_falling_star()
-                if rng.randi() % 100 < 50 + level:
+                if rng.randi() % 100 < 30 + level:
                     # Double star
                     add_falling_star()
 
