@@ -133,7 +133,7 @@ func increase_level():
     level += 1
     level_first_faller = true
     $RollingText.roll_text("Stage " + str(level))
-    if level == 5:
+    if level == 4:
         $BlackStarTimer.start()
     spawner()
 

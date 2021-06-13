@@ -35,9 +35,9 @@ func _on_LifeTimer_timeout():
     $DeathTimer.start()
 
 
-func _on_CollisionTimer_timeout():
-    $CollisionShape2D.set_deferred("disabled", false)
-
-
 func _on_ShowSpriteTimer_timeout():
     self.show()
+
+
+func _on_CollisionTimer_timeout():
+    $CollisionShape2D.set_deferred("disabled", false)

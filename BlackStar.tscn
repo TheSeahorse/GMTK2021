@@ -38,17 +38,16 @@ wait_time = 10.0
 one_shot = true
 autostart = true
 
-[node name="GrowTween" type="Tween" parent="."]
-
 [node name="ShowSpriteTimer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
 autostart = true
 
 [node name="CollisionTimer" type="Timer" parent="."]
-wait_time = 0.1
-one_shot = true
+wait_time = 1.5
 autostart = true
+
+[node name="GrowTween" type="Tween" parent="."]
 
 [node name="Mohaha" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
