@@ -400,7 +400,7 @@ func _on_GameOver_back_to_menu():
 
 func _on_BlackStarTimer_timeout():
     add_black_star()
-    $BlackStarTimer.wait_time -= 3
-    if $BlackStarTimer.wait_time < 10:
-        $BlackStarTimer.wait_time = 5
+    $BlackStarTimer.wait_time -= 2
+    if $BlackStarTimer.wait_time < 12:
+        $BlackStarTimer.wait_time = 12
     $BlackStarTimer.start()
