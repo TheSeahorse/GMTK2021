@@ -41,7 +41,7 @@ wait_time = 0.04
 
 [node name="collision" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 3 )
-volume_db = -15.0
+volume_db = -10.0
 
 [connection signal="body_entered" from="collision_detector" to="." method="_on_collision_detector_body_entered"]
 [connection signal="timeout" from="BigTimer" to="." method="_on_BigTimer_timeout"]

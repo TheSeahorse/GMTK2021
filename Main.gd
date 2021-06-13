@@ -70,7 +70,7 @@ func _process(_delta):
 
 
 func _physics_process(_delta):
-    if not game_over and ((player.position.y > GAME_HEIGHT + 32 or player.position.y < -32) or (player.position.x < 0 or player.position.x > GAME_WIDTH)):
+    if not game_over and ((player.position.y > GAME_HEIGHT + 40 or player.position.y < -40) or (player.position.x < 0 or player.position.x > GAME_WIDTH)):
         if $OutOfZoneTimer.is_stopped() and not game_over:
             $DeathZone.play()
             $OutOfZoneTimer.start(1)
