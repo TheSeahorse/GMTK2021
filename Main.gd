@@ -67,6 +67,8 @@ func _process(_delta):
     var new_position = get_global_mouse_position()
     $MouseActive.position = new_position
     $MouseCooldown.position = new_position
+    if $Stars.get_children().size() == 0:
+        add_star()
 
 
 func _physics_process(_delta):
