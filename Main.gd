@@ -60,7 +60,7 @@ func _input(event):
 func _process(_delta):
     if not $OutOfZoneTimer.is_stopped():
         var time_left = $OutOfZoneTimer.get_time_left()
-        var percentage = abs(1 - time_left) / 1 * 100
+        var percentage = abs(1 - time_left) / 1 * 200
         $HUD/ColorRect.color = Color8(255, 0, 0, percentage)
 
     # Set mouse sprite position
@@ -72,9 +72,11 @@ func _process(_delta):
 func _physics_process(_delta):
     if not game_over and ((player.position.y > GAME_HEIGHT + 32 or player.position.y < -32) or (player.position.x < 0 or player.position.x > GAME_WIDTH)):
         if $OutOfZoneTimer.is_stopped() and not game_over:
+            $DeathZone.play()
             $OutOfZoneTimer.start(1)
     else:
         if not $OutOfZoneTimer.is_stopped():
+            $DeathZone.stop()
             $OutOfZoneTimer.stop()
             reset_game_over_colors()
 

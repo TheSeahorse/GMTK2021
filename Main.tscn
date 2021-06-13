@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://Wall.tscn" type="PackedScene" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://Sound/silver_star.wav" type="AudioStream" id=11]
 [ext_resource path="res://Graphics/kenney/PNG/Retina/grey_tiny_ball.png" type="Texture" id=12]
 [ext_resource path="res://Graphics/kenney/PNG/Retina/grey_tiny_crossv3.png" type="Texture" id=13]
+[ext_resource path="res://Sound/death_zone.wav" type="AudioStream" id=14]
 [ext_resource path="res://Sound/black_star.wav" type="AudioStream" id=15]
 
 [node name="Main" type="Container"]
@@ -34,6 +35,9 @@ margin_top = -32.4
 margin_right = 1706.88
 margin_bottom = 1047.6
 color = Color( 0.733333, 0.898039, 0.941176, 1 )
+
+[node name="Star" parent="." instance=ExtResource( 10 )]
+position = Vector2( 252, 845 )
 
 [node name="Wall" parent="." instance=ExtResource( 2 )]
 position = Vector2( -20, 526 )
@@ -96,14 +100,15 @@ volume_db = -15.0
 stream = ExtResource( 7 )
 volume_db = -15.0
 
+[node name="DeathZone" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 14 )
+volume_db = -10.0
+
 [node name="PlaceRope" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
 volume_db = -30.0
 
 [node name="RollingText" parent="." instance=ExtResource( 9 )]
-
-[node name="Star" parent="." instance=ExtResource( 10 )]
-position = Vector2( 252, 845 )
 
 [node name="MouseActive" type="Sprite" parent="."]
 texture = ExtResource( 12 )

@@ -11,6 +11,7 @@ func _ready():
 
 
 func update_score():
+    $Death.play()
     $VBoxContainer/HighscoreLabel.text = "Highscore: " + str(GameData.highscore)
 
 

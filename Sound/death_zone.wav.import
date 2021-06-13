@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/death_zone.wav-2cfd9535f83ec08f38c2ee530186d255.sample"
+
+[deps]
+
+source_file="res://Sound/death_zone.wav"
+dest_files=[ "res://.import/death_zone.wav-2cfd9535f83ec08f38c2ee530186d255.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

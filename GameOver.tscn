@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Graphics/kenney/Future.tres" type="DynamicFont" id=1]
 [ext_resource path="res://GameOver.gd" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Graphics/kenney_buttons/green_long_pressed.png" type="Texture" id=7]
 [ext_resource path="res://Graphics/kenney_buttons/green_long_hover.png" type="Texture" id=8]
 [ext_resource path="res://Graphics/kenney_buttons/green_long_normal.png" type="Texture" id=9]
+[ext_resource path="res://Sound/laser.wav" type="AudioStream" id=10]
 
 [node name="GameOver" type="CenterContainer"]
 anchor_left = 0.5
@@ -83,6 +84,10 @@ align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Death" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+volume_db = -15.0
 
 [connection signal="pressed" from="VBoxContainer/PlayAgain" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="VBoxContainer/BackToMenu" to="." method="_on_BackToMenu_pressed"]
