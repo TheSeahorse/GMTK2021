@@ -61,6 +61,7 @@ shape = SubResource( 4 )
 
 [node name="collision" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
+volume_db = -15.0
 
 [connection signal="body_entered" from="." to="." method="_on_Player_body_entered"]
 [connection signal="input_event" from="rope_outline" to="." method="_on_rope_outline_input_event"]

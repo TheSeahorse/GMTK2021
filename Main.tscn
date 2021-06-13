@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://Wall.tscn" type="PackedScene" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://Sound/rubber_shot.wav" type="AudioStream" id=7]
 [ext_resource path="res://Sound/pop.wav" type="AudioStream" id=8]
 [ext_resource path="res://RollingText.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Star.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Sound/silver_star.wav" type="AudioStream" id=11]
 
 [node name="Main" type="Container"]
 anchor_right = 1.0
@@ -69,6 +71,10 @@ one_shot = true
 pause_mode = 2
 visible = false
 
+[node name="SilverStarPickup" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+volume_db = -15.0
+
 [node name="StarPickup" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
 volume_db = -15.0
@@ -86,6 +92,9 @@ stream = ExtResource( 8 )
 volume_db = -30.0
 
 [node name="RollingText" parent="." instance=ExtResource( 9 )]
+
+[node name="Star" parent="." instance=ExtResource( 10 )]
+position = Vector2( 252, 845 )
 
 [connection signal="timeout" from="FallerTimer" to="." method="_on_FallerTimer_timeout"]
 [connection signal="timeout" from="LevelTimer" to="." method="_on_LevelTimer_timeout"]

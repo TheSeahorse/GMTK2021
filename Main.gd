@@ -31,7 +31,6 @@ func _ready():
     player.linear_velocity = Vector2(400, -400)
     player.connect("star_entered", self, "_player_touched_star")
     add_child(player)
-    add_star()
     set_process(true)
     set_process_input(true)
 
@@ -111,8 +110,10 @@ func _player_touched_star(body):
     var is_a_star = true
     if body.is_in_group("one_point"):
         points += 1
+        $StarPickup.play()
         add_star()
     elif body.is_in_group("five_points"):
+        $SilverStarPickup.play()
         points += 5
     else:
         is_a_star = false
@@ -122,8 +123,8 @@ func _player_touched_star(body):
             $LevelTimer.start()
             level = 1
             $RollingText.roll_text("Stage " + str(level))
-        $StarPickup.play()
-        body.queue_free()
+
+        body.die()
         $HUD/Label.text = str(points)
 
 
@@ -132,7 +133,7 @@ func spawner(level: int):
         0:
             pass
         1, 2:
-            add_faller()
+            add_falling_star()
         3:
             var chance = randi() % 3
             if chance == 0:

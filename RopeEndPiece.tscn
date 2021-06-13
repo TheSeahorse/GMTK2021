@@ -4,10 +4,10 @@
 [ext_resource path="res://RopeEndPiece.gd" type="Script" id=2]
 [ext_resource path="res://Sound/thud.wav" type="AudioStream" id=3]
 
-[sub_resource type="CircleShape2D" id=2]
+[sub_resource type="CircleShape2D" id=1]
 radius = 40.6612
 
-[sub_resource type="CircleShape2D" id=1]
+[sub_resource type="CircleShape2D" id=2]
 radius = 30.0
 
 [node name="RopeEndPiece" type="RigidBody2D"]
@@ -25,10 +25,10 @@ collision_mask = 18
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collision_detector"]
 modulate = Color( 0.0666667, 0.639216, 0, 1 )
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="C" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="J" type="PinJoint2D" parent="C"]
 
@@ -41,6 +41,7 @@ wait_time = 0.04
 
 [node name="collision" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 3 )
+volume_db = -15.0
 
 [connection signal="body_entered" from="collision_detector" to="." method="_on_collision_detector_body_entered"]
 [connection signal="timeout" from="BigTimer" to="." method="_on_BigTimer_timeout"]
