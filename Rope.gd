@@ -3,6 +3,7 @@ extends Node2D
 var rope_piece = preload("res://RopePiece.tscn")
 var piece_length = 20.0
 var rope_pieces = []
+var ropes = [] # There can be multiple if the rope is cut
 var rope_points : PoolVector2Array = []
 var rope_close_tolerence = piece_length
 
@@ -11,13 +12,15 @@ onready var rope_start_piece = $RopeStartPiece
 
 func _process(_delta):
     get_rope_points()
-    if !rope_points.empty():
+    if !ropes.empty():
         update()
 
 
 func _draw():
-    if rope_points.size() > 1:
-        draw_polyline(rope_points, Color("80604D"))
+    if ropes.size() > 0:
+        for rope in ropes:
+            if rope.size() > 0:
+                draw_polyline(rope, Color("80604D"))
 
 
 func spawn_rope(start_pos: Vector2, end_pos: Vector2, player: Object):
@@ -59,9 +62,13 @@ func add_piece(parent:Object, spawn_angle:float) -> Object:
 
 
 func get_rope_points():
+    ropes = []
     rope_points = []
-    #rope_points.append(rope_start_piece.global_position)
     for r in rope_pieces:
         if is_instance_valid(r):
             rope_points.append(r.global_position)
+        else:
+            ropes.append(rope_points)
+            rope_points = []
+    ropes.append(rope_points)
 

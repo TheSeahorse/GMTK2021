@@ -70,6 +70,8 @@ func _process(_delta):
 
 
 func _physics_process(_delta):
+    if not is_instance_valid(player):
+        return
     if not game_over and ((player.position.y > GAME_HEIGHT + 40 or player.position.y < -40) or (player.position.x < 0 or player.position.x > GAME_WIDTH)):
         if $OutOfZoneTimer.is_stopped() and not game_over:
             $DeathZone.play()
@@ -246,6 +248,8 @@ func spawner():
 
 
 func give_player_boost():
+    if not is_instance_valid(player):
+        return
     if game_over:
         return
     var max_boost = 4000
