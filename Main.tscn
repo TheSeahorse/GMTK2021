@@ -47,8 +47,6 @@ scale = Vector2( 1, 20 )
 [node name="Fallers" type="Node2D" parent="."]
 
 [node name="FallerTimer" type="Timer" parent="."]
-wait_time = 10.0
-autostart = true
 
 [node name="LevelTimer" type="Timer" parent="."]
 wait_time = 30.0

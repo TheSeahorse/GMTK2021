@@ -37,7 +37,7 @@ func _on_Laser_body_entered(body):
     if body is Faller:
         body.queue_free()
     elif body is Player:
-        get_parent().get_parent().game_over()
+        get_parent().get_parent().end_game()
 
 
 func flip():
