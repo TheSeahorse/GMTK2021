@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://RopePiece.gd" type="Script" id=1]
-[ext_resource path="res://Graphics/link.png" type="Texture" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
 height = 10.0
@@ -19,8 +18,3 @@ shape = SubResource( 1 )
 [node name="J" type="PinJoint2D" parent="C"]
 position = Vector2( 0, 15 )
 disable_collision = false
-
-[node name="Sprite" type="Sprite" parent="."]
-visible = false
-position = Vector2( 0, 20 )
-texture = ExtResource( 2 )

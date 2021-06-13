@@ -108,4 +108,5 @@ texture = ExtResource( 13 )
 [connection signal="timeout" from="LevelTimer" to="." method="_on_LevelTimer_timeout"]
 [connection signal="timeout" from="OutOfZoneTimer" to="." method="_on_OutOfZoneTimer_timeout"]
 [connection signal="timeout" from="RopeRecharge" to="." method="_on_RopeRecharge_timeout"]
+[connection signal="back_to_menu" from="GameOver" to="." method="_on_GameOver_back_to_menu"]
 [connection signal="play_again" from="GameOver" to="." method="_on_GameOver_play_again"]

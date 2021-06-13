@@ -14,6 +14,7 @@ var GAME_WIDTH = ProjectSettings.get_setting("display/window/size/width")
 var GameData
 
 signal play_again
+signal back_to_menu
 
 var rng = RandomNumberGenerator.new()
 var current_rope = null
@@ -311,3 +312,7 @@ func game_over():
 
 func _on_GameOver_play_again():
     emit_signal("play_again")
+
+
+func _on_GameOver_back_to_menu():
+    emit_signal("back_to_menu")

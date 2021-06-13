@@ -1,6 +1,7 @@
 extends Control
 
 signal play_again
+signal back_to_menu
 
 var GameData
 
@@ -16,3 +17,8 @@ func update_score():
 func _on_Button_pressed():
     get_tree().paused = false
     emit_signal("play_again")
+
+
+func _on_BackToMenu_pressed():
+    get_tree().paused = false
+    emit_signal("back_to_menu")
