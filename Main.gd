@@ -23,7 +23,9 @@ var points = 0
 var game_over = false
 var can_spawn_rope = true
 var level = 0
+var faller_wait_time = 3
 
+var level_first_faller = false
 var previous_star_position : Vector2 = Vector2.ZERO
 
 # Called when the node enters the scene tree for the first time.
@@ -85,32 +87,15 @@ func reset_game_over_colors():
 
 
 func _on_LevelTimer_timeout():
-    level += 1
-    $RollingText.roll_text("Stage " + str(level))
-    match level:
-        1:
-            $FallerTimer.wait_time = 10
-        2:
-
-            $FallerTimer.wait_time = 3
-        3:
-            add_long_faller()
-
-        4:
-            add_falling_star()
-
-        5:
-            $FallerTimer.wait_time = 1.5
-        6:
-            add_laser()
+    increase_level()
 
 
 func _on_FallerTimer_timeout():
-    spawner(level)
+    spawner()
 
 
 func _on_OutOfZoneTimer_timeout():
-    game_over()
+    end_game()
 
 
 func _on_RopeRecharge_timeout():
@@ -134,53 +119,123 @@ func _player_touched_star(body):
     if is_a_star:
         if points == 1:
             $LevelTimer.start()
-            level = 1
-            $RollingText.roll_text("Stage " + str(level))
+            increase_level()
 
         body.die()
         $HUD/Label.text = str(points)
 
 
-func spawner(level: int):
+func increase_level():
+    level += 1
+    level_first_faller = true
+    $RollingText.roll_text("Stage " + str(level))
+    spawner()
+
+
+func spawner():
+    var chance = rng.randi() % 100
     match level:
         0:
             pass
-        1, 2:
+        1:
+            faller_wait_time = 10
+            add_faller()
+        2:
+            faller_wait_time = 5
             add_faller()
         3:
-            var chance = randi() % 3
-            if chance == 0:
+            if level_first_faller:
+                add_long_faller()
+            else:
+                if chance < 30:
+                    add_long_faller()
+                else:
+                    add_faller()
+        4:
+            faller_wait_time = 3
+            if level_first_faller:
+                add_falling_star()
+            else:
+                if chance < 50:
+                    add_long_faller()
+                else:
+                    add_faller()
+                if chance < 10:
+                    add_falling_star()
+        5:
+            if chance < 50:
                 add_long_faller()
             else:
                 add_faller()
-        4, 5:
-            var chance = randi() % 10
-            if chance < 5:
-                add_long_faller()
-            else:
-                add_faller()
-            if chance == 0:
+            if chance < 10:
                 add_falling_star()
         6:
-            var chance = randi() % 10
-            if chance < 5:
+            if level_first_faller:
+                add_laser()
+            else:
+                if chance < 50:
+                    add_long_faller()
+                else:
+                    add_faller()
+                if chance < 15:
+                    add_falling_star()
+
+        7:
+            if chance < 70:
                 add_long_faller()
             else:
                 add_faller()
-            if chance == 0:
+            if chance < 15:
                 add_falling_star()
-            if chance < 3:
+            if chance < 20:
+                add_laser()
+        8:
+            if chance < 70:
+                add_long_faller()
+            else:
+                add_faller()
+            if chance < 15:
+                add_falling_star()
+            if chance < 25:
+                add_laser()
+        9:
+            if chance < 70:
+                add_long_faller()
+            else:
+                add_faller()
+            if chance < 15:
+                add_falling_star()
+            if chance < 30:
+                add_laser()
+        10:
+            if chance < 70:
+                add_long_faller()
+            if chance < 70:
+                add_faller()
+            if chance < 20:
+                add_falling_star()
+            if chance < 30:
                 add_laser()
         _:
-            var chance = randi() % 10
-            if chance < 7:
+            faller_wait_time = 3.0 - (level / 25)
+            if chance < 70 + level:
                 add_long_faller()
-            else:
+            if chance < 70 + level:
                 add_faller()
-            if chance == 0:
-                add_falling_star()
-            if chance < 5:
+            if chance < 30 + level:
                 add_laser()
+
+            if chance < 20 + level:
+                add_falling_star()
+                if rng.randi() % 100 < 50 + level:
+                    # Double star
+                    add_falling_star()
+
+
+    level_first_faller = false
+    $FallerTimer.wait_time = faller_wait_time
+    $FallerTimer.start(faller_wait_time)
+    print($FallerTimer.time_left)
 
 
 func give_player_boost():
@@ -209,8 +264,7 @@ func give_player_boost():
 
 func add_faller():
     var new_faller = faller.instance()
-    var width = GAME_WIDTH
-    var new_pos_x = rng.randf_range(0, width)
+    var new_pos_x = rng.randf_range(40, GAME_WIDTH - 40)
     new_faller.position.x = new_pos_x
     new_faller.position.y = -64
     $Fallers.call_deferred("add_child", new_faller)
@@ -218,19 +272,17 @@ func add_faller():
 
 func add_long_faller():
     var new_faller = long_faller.instance()
-    var width = ProjectSettings.get_setting("display/window/size/width")
-    var new_pos_x = rng.randf_range(256, width - 256)
+    var new_pos_x = rng.randf_range(256, GAME_WIDTH - 256)
     new_faller.position.x = new_pos_x
     new_faller.position.y = -256
-    if randi() % 2 == 0:
+    if rng.randi() % 2 == 0:
         new_faller.rotation_degrees = 90
     $Fallers.add_child(new_faller)
 
 
 func add_falling_star():
     var new_star = SilverStar.instance()
-    var width = GAME_WIDTH
-    var new_pos_x = rng.randf_range(0, width)
+    var new_pos_x = rng.randf_range(40, GAME_WIDTH - 40)
     new_star.position.x = new_pos_x
     new_star.position.y = -64
     new_star.angular_velocity = rng.randf_range(-5, 5)
@@ -257,7 +309,7 @@ func add_laser():
     var new_laser = Laser.instance()
     var new_pos_y = rng.randf_range(40, GAME_HEIGHT - 40)
     var new_pos_x = 47
-    if randi() % 2 == 0:
+    if rng.randi() % 2 == 0:
         new_pos_x = GAME_WIDTH - 47
         new_laser.flip()
     new_laser.position = Vector2(new_pos_x, new_pos_y)
@@ -297,7 +349,7 @@ func start_rope_recharge_timer():
     player.rope_cooldown(true)
 
 
-func game_over():
+func end_game():
     game_over = true
     player.queue_free()
     if points > GameData.highscore:
