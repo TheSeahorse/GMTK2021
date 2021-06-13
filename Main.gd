@@ -23,6 +23,8 @@ var game_over = false
 var can_spawn_rope = true
 var level = 0
 
+var previous_star_position : Vector2 = Vector2.ZERO
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
     rng.randomize()
@@ -238,9 +240,15 @@ func add_star():
     var new_star = Star.instance()
     var width = GAME_WIDTH
     var height = GAME_HEIGHT
-    var new_pos_x = rng.randf_range(40, width - 40)
-    var new_pos_y = rng.randf_range(40, height - 40)
-    new_star.position = Vector2(new_pos_x, new_pos_y)
+    new_star.position = previous_star_position
+    while new_star.position.distance_to(previous_star_position) < 500:
+        var new_pos_x = rng.randf_range(40, width - 40)
+        var new_pos_y = rng.randf_range(40, height - 40)
+        new_star.position = Vector2(new_pos_x, new_pos_y)
+        if new_star.position.y < 100 and new_star.position.x > 1650:
+            # Star is too close to score. Loop again.
+            new_star.position = previous_star_position
+    previous_star_position = new_star.position
     $Stars.call_deferred("add_child", new_star)
 
 
