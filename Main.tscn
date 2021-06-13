@@ -107,9 +107,6 @@ texture = ExtResource( 12 )
 [node name="MouseCooldown" type="Sprite" parent="."]
 texture = ExtResource( 13 )
 
-[node name="BlackStar" parent="." instance=ExtResource( 14 )]
-position = Vector2( 1280, 201 )
-
 [connection signal="timeout" from="FallerTimer" to="." method="_on_FallerTimer_timeout"]
 [connection signal="timeout" from="LevelTimer" to="." method="_on_LevelTimer_timeout"]
 [connection signal="timeout" from="OutOfZoneTimer" to="." method="_on_OutOfZoneTimer_timeout"]
