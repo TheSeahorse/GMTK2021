@@ -50,7 +50,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Gmtk 2021"
+config/name="Flingzone"
 run/main_scene="res://Menu.tscn"
 config/icon="res://Graphics/kenney/PNG/Retina/ball_red_small.png"
 
