@@ -235,7 +235,6 @@ func spawner():
     level_first_faller = false
     $FallerTimer.wait_time = faller_wait_time
     $FallerTimer.start(faller_wait_time)
-    print($FallerTimer.time_left)
 
 
 func give_player_boost():
