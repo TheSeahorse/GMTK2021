@@ -40,7 +40,7 @@ _global_script_class_icons={
 
 config/name="Gmtk 2021"
 run/main_scene="res://Menu.tscn"
-config/icon="res://Graphics/icon.png"
+config/icon="res://Graphics/kenney/PNG/Retina/ball_red_small.png"
 
 [autoload]
 
