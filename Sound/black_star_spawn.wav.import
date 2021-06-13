@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/black_star_spawn.wav-fd762e4a6c2a255e1868402d3847404d.sample"
+
+[deps]
+
+source_file="res://Sound/black_star_spawn.wav"
+dest_files=[ "res://.import/black_star_spawn.wav-fd762e4a6c2a255e1868402d3847404d.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

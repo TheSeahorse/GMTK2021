@@ -4,6 +4,7 @@ onready var rope = preload("res://Rope.tscn")
 onready var faller = preload("res://Faller.tscn")
 onready var long_faller = preload("res://LongFaller.tscn")
 onready var Star = preload("res://Star.tscn")
+onready var BlackStar = preload("res://BlackStar.tscn")
 onready var Laser = preload("res://Laser.tscn")
 onready var SilverStar = preload("res://SilverStar.tscn")
 onready var player = preload("res://Player.tscn").instance()
@@ -115,7 +116,7 @@ func _player_touched_star(body):
         points += 5
     elif body.is_in_group("minus_points"):
         $BlackStarPickup.play()
-        points -= 1
+        points -= 3
     else:
         is_a_star = false
 
@@ -293,17 +294,23 @@ func add_falling_star():
 
 func add_star():
     var new_star = Star.instance()
-    var width = GAME_WIDTH
-    var height = GAME_HEIGHT
     new_star.position = previous_star_position
     while new_star.position.distance_to(previous_star_position) < 500:
-        var new_pos_x = rng.randf_range(40, width - 40)
-        var new_pos_y = rng.randf_range(40, height - 40)
+        var new_pos_x = rng.randf_range(40, GAME_WIDTH - 40)
+        var new_pos_y = rng.randf_range(40, GAME_HEIGHT - 40)
         new_star.position = Vector2(new_pos_x, new_pos_y)
         if new_star.position.y < 100 and new_star.position.x > 1650:
             # Star is too close to score. Loop again.
             new_star.position = previous_star_position
     previous_star_position = new_star.position
+    $Stars.call_deferred("add_child", new_star)
+
+
+func add_black_star():
+    var new_star = BlackStar.instance()
+    var pos_x = rng.randf_range(100, GAME_WIDTH - 100)
+    var pos_y = rng.randf_range(100, GAME_HEIGHT - 100)
+    new_star.position = Vector2(pos_x, pos_y)
     $Stars.call_deferred("add_child", new_star)
 
 
