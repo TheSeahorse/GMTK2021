@@ -143,7 +143,7 @@ func spawner(level: int):
         0:
             pass
         1, 2:
-            add_falling_star()
+            add_faller()
         3:
             var chance = randi() % 3
             if chance == 0:
