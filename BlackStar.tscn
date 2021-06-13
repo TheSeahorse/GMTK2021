@@ -11,6 +11,7 @@ radius = 77.4954
 [node name="BlackStar" type="RigidBody2D" groups=[
 "minus_points",
 ]]
+visible = false
 collision_layer = 16
 collision_mask = 2
 gravity_scale = 0.0
@@ -39,7 +40,13 @@ autostart = true
 
 [node name="GrowTween" type="Tween" parent="."]
 
+[node name="ShowSpriteTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+autostart = true
+
 [node name="CollisionTimer" type="Timer" parent="."]
+wait_time = 0.1
 one_shot = true
 autostart = true
 
@@ -49,4 +56,5 @@ volume_db = -15.0
 
 [connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]
 [connection signal="timeout" from="LifeTimer" to="." method="_on_LifeTimer_timeout"]
+[connection signal="timeout" from="ShowSpriteTimer" to="." method="_on_ShowSpriteTimer_timeout"]
 [connection signal="timeout" from="CollisionTimer" to="." method="_on_CollisionTimer_timeout"]

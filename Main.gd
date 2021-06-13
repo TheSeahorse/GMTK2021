@@ -133,6 +133,8 @@ func increase_level():
     level += 1
     level_first_faller = true
     $RollingText.roll_text("Stage " + str(level))
+    if level == 5:
+        $BlackStarTimer.start()
     spawner()
 
 
@@ -388,3 +390,11 @@ func _on_GameOver_play_again():
 
 func _on_GameOver_back_to_menu():
     emit_signal("back_to_menu")
+
+
+func _on_BlackStarTimer_timeout():
+    add_black_star()
+    $BlackStarTimer.wait_time -= 3
+    if $BlackStarTimer.wait_time < 10:
+        $BlackStarTimer.wait_time = 10
+    $BlackStarTimer.start()

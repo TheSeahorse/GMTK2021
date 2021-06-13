@@ -50,6 +50,10 @@ scale = Vector2( 1, 20 )
 [node name="LevelTimer" type="Timer" parent="."]
 wait_time = 30.0
 
+[node name="BlackStarTimer" type="Timer" parent="."]
+wait_time = 35.0
+one_shot = true
+
 [node name="Stars" type="Node2D" parent="."]
 
 [node name="PlayerControl" type="Control" parent="."]
@@ -107,11 +111,9 @@ texture = ExtResource( 12 )
 [node name="MouseCooldown" type="Sprite" parent="."]
 texture = ExtResource( 13 )
 
-[node name="BlackStar" parent="." instance=ExtResource( 14 )]
-position = Vector2( 1280, 201 )
-
 [connection signal="timeout" from="FallerTimer" to="." method="_on_FallerTimer_timeout"]
 [connection signal="timeout" from="LevelTimer" to="." method="_on_LevelTimer_timeout"]
+[connection signal="timeout" from="BlackStarTimer" to="." method="_on_BlackStarTimer_timeout"]
 [connection signal="timeout" from="OutOfZoneTimer" to="." method="_on_OutOfZoneTimer_timeout"]
 [connection signal="timeout" from="RopeRecharge" to="." method="_on_RopeRecharge_timeout"]
 [connection signal="back_to_menu" from="GameOver" to="." method="_on_GameOver_back_to_menu"]

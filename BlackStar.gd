@@ -1,6 +1,8 @@
 extends RigidBody2D
 class_name BlackStar
 
+var shown = false
+
 
 func _ready():
     $Mohaha.play()
@@ -11,6 +13,7 @@ func _ready():
 
     $GrowTween.interpolate_property(self, "scale" , Vector2(0,0), Vector2(1,1), 1.0, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
     $GrowTween.start()
+    $Sprite.show()
 
 
 func die():
@@ -34,3 +37,7 @@ func _on_LifeTimer_timeout():
 
 func _on_CollisionTimer_timeout():
     $CollisionShape2D.set_deferred("disabled", false)
+
+
+func _on_ShowSpriteTimer_timeout():
+    self.show()
