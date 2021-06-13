@@ -34,8 +34,10 @@ func _on_Timer_timeout():
 
 
 func _on_Laser_body_entered(body):
-    if body is Faller:
+    if body is Faller or BlackStar:
         body.queue_free()
+    if body is RopeEnd or RopePiece:
+        get_parent().get_parent().despawn_rope()
     elif body is Player:
         get_parent().get_parent().end_game()
 

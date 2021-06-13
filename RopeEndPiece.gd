@@ -1,5 +1,5 @@
 extends RigidBody2D
-
+class_name RopeEnd
 
 func _on_BigTimer_timeout():
     $ShrinkTimer.start()

@@ -55,7 +55,7 @@ scale = Vector2( 1, 20 )
 wait_time = 30.0
 
 [node name="BlackStarTimer" type="Timer" parent="."]
-wait_time = 35.0
+wait_time = 5.0
 one_shot = true
 
 [node name="Stars" type="Node2D" parent="."]

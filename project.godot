@@ -24,6 +24,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Player.gd"
 }, {
+"base": "RigidBody2D",
+"class": "RopeEnd",
+"language": "GDScript",
+"path": "res://RopeEndPiece.gd"
+}, {
+"base": "RigidBody2D",
+"class": "RopePiece",
+"language": "GDScript",
+"path": "res://RopePiece.gd"
+}, {
 "base": "StaticBody2D",
 "class": "Star",
 "language": "GDScript",
@@ -33,6 +43,8 @@ _global_script_class_icons={
 "BlackStar": "",
 "Faller": "",
 "Player": "",
+"RopeEnd": "",
+"RopePiece": "",
 "Star": ""
 }
 
