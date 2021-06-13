@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://Wall.tscn" type="PackedScene" id=2]
@@ -11,6 +11,8 @@
 [ext_resource path="res://RollingText.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Star.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Sound/silver_star.wav" type="AudioStream" id=11]
+[ext_resource path="res://Graphics/kenney/PNG/Retina/grey_tiny_ball.png" type="Texture" id=12]
+[ext_resource path="res://Graphics/kenney/PNG/Retina/grey_tiny_crossv3.png" type="Texture" id=13]
 
 [node name="Main" type="Container"]
 anchor_right = 1.0
@@ -95,6 +97,12 @@ volume_db = -30.0
 
 [node name="Star" parent="." instance=ExtResource( 10 )]
 position = Vector2( 252, 845 )
+
+[node name="MouseActive" type="Sprite" parent="."]
+texture = ExtResource( 12 )
+
+[node name="MouseCooldown" type="Sprite" parent="."]
+texture = ExtResource( 13 )
 
 [connection signal="timeout" from="FallerTimer" to="." method="_on_FallerTimer_timeout"]
 [connection signal="timeout" from="LevelTimer" to="." method="_on_LevelTimer_timeout"]

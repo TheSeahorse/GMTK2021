@@ -26,6 +26,9 @@ var level = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
     rng.randomize()
+    Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+    $MouseCooldown.hide()
+    $MouseActive.show()
     GameData = get_node("/root/GameData")
     player.position = Vector2(800,300)
     player.linear_velocity = Vector2(400, -400)
@@ -53,6 +56,11 @@ func _process(_delta):
         var time_left = $OutOfZoneTimer.get_time_left()
         var percentage = abs(1 - time_left) / 1 * 100
         $HUD/ColorRect.color = Color8(255, 0, 0, percentage)
+
+    # Set mouse sprite position
+    var new_position = get_global_mouse_position()
+    $MouseActive.position = new_position
+    $MouseCooldown.position = new_position
 
 
 func _physics_process(_delta):
@@ -104,6 +112,8 @@ func _on_OutOfZoneTimer_timeout():
 
 func _on_RopeRecharge_timeout():
     can_spawn_rope = true
+    $MouseActive.show()
+    $MouseCooldown.hide()
 
 
 func _player_touched_star(body):
@@ -273,6 +283,8 @@ func despawn_rope():
 func start_rope_recharge_timer():
     can_spawn_rope = false
     $RopeRecharge.start()
+    $MouseActive.hide()
+    $MouseCooldown.show()
     player.rope_cooldown(true)
 
 
@@ -282,14 +294,19 @@ func game_over():
     if points > GameData.highscore:
         GameData.highscore = points
         GameData.save_score()
+
     $GameOver.update_score()
     $GameOver.show()
-    get_tree().paused = true
     $RollingText.queue_free()
     $Fallers.queue_free()
     $Stars.queue_free()
     $HUD.queue_free()
     despawn_rope()
+    $MouseActive.hide()
+    $MouseCooldown.hide()
+    Input.set_custom_mouse_cursor(null)
+    Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+    get_tree().paused = true
 
 
 func _on_GameOver_play_again():
