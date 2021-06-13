@@ -20,13 +20,13 @@ func _on_Timer_timeout():
         1:
             $NumbersSprite.texture = number_1
         0:
-            $Area2D/CollisionShape2D.disabled = false
+            $Area2D/CollisionShape2D.set_deferred("disabled", false)
             $NumbersSprite.hide()
             $LongLaser.show()
             $FadeTween.interpolate_property($LongLaser, "modulate" , Color(1,1,1,1), Color(1,1,1,0), 1.0, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
             $FadeTween.start()
         -1:
-            $Area2D/CollisionShape2D.disabled = true
+            $Area2D/CollisionShape2D.set_deferred("disabled", true)
         -2:
             self.queue_free()
 

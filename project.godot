@@ -10,6 +10,11 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "RigidBody2D",
+"class": "BlackStar",
+"language": "GDScript",
+"path": "res://BlackStar.gd"
+}, {
+"base": "RigidBody2D",
 "class": "Faller",
 "language": "GDScript",
 "path": "res://Faller.gd"
@@ -25,6 +30,7 @@ _global_script_classes=[ {
 "path": "res://Star.gd"
 } ]
 _global_script_class_icons={
+"BlackStar": "",
 "Faller": "",
 "Player": "",
 "Star": ""

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://Wall.tscn" type="PackedScene" id=2]
@@ -13,6 +13,8 @@
 [ext_resource path="res://Sound/silver_star.wav" type="AudioStream" id=11]
 [ext_resource path="res://Graphics/kenney/PNG/Retina/grey_tiny_ball.png" type="Texture" id=12]
 [ext_resource path="res://Graphics/kenney/PNG/Retina/grey_tiny_crossv3.png" type="Texture" id=13]
+[ext_resource path="res://BlackStar.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Sound/black_star.wav" type="AudioStream" id=15]
 
 [node name="Main" type="Container"]
 anchor_right = 1.0
@@ -77,6 +79,10 @@ visible = false
 stream = ExtResource( 11 )
 volume_db = -15.0
 
+[node name="BlackStarPickup" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 15 )
+volume_db = -5.0
+
 [node name="StarPickup" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
 volume_db = -15.0
@@ -92,6 +98,9 @@ volume_db = -15.0
 [node name="PlaceRope" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
 volume_db = -30.0
+
+[node name="BlackStar" parent="." instance=ExtResource( 14 )]
+position = Vector2( 614, 545 )
 
 [node name="RollingText" parent="." instance=ExtResource( 9 )]
 

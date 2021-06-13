@@ -128,6 +128,9 @@ func _player_touched_star(body):
     elif body.is_in_group("five_points"):
         $SilverStarPickup.play()
         points += 5
+    elif body.is_in_group("minus_points"):
+        $BlackStarPickup.play()
+        points -= 1
     else:
         is_a_star = false
 
@@ -270,10 +273,13 @@ func spawn_rope():
     var player_pos = player.position
     if game_over:
         return
-    if player_pos.distance_to(mouse_pos) > 300:
+    if player_pos.distance_to(mouse_pos) > 320:
         var angle = mouse_pos.angle_to_point(player_pos)
         mouse_pos = player_pos + Vector2(cos(angle) * 320, sin(angle) * 320)
     current_rope = rope.instance()
+    if player_pos.distance_to(mouse_pos) < 60:
+        var angle = mouse_pos.angle_to_point(player_pos)
+        mouse_pos = player_pos + Vector2(cos(angle) * 60, sin(angle) * 60)
     add_child(current_rope)
     current_rope.spawn_rope(mouse_pos, player_pos, player)
 
